@@ -58,6 +58,4 @@ public class MovieEntity {
         this.length = length;
     }
 
-    
-
 }

@@ -1,6 +1,7 @@
 package dev.simoneaa.demop5.movie;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 import java.util.Optional;
 import dev.simoneaa.demop5.movie.dtos.MovieDTOResponse;
+import dev.simoneaa.demop5.movie.exceptions.MovieExceptionNotFound;
 
 @ExtendWith(MockitoExtension.class)
 public class MovieServiceImplTest {
@@ -48,14 +50,22 @@ public class MovieServiceImplTest {
 
     @Test
     void testGetById() {
-        MovieEntity countryMock = new MovieEntity(1L, "Cure", "Kiyoshi Kurosawa", 111);
+        MovieEntity movieMock = new MovieEntity(1L, "Cure", "Kiyoshi Kurosawa", 111);
 
-        when(repository.findById(1L)).thenReturn(Optional.of(countryMock));
+        when(repository.findById(1L)).thenReturn(Optional.of(movieMock));
         MovieDTOResponse movies = service.getById(1L);
 
         assertThat(movies.id()).isEqualTo(1L);
         assertThat(movies.title()).isEqualTo("Cure");
         assertThat(movies.director()).isEqualTo("Kiyoshi Kurosawa");
         assertThat(movies.length()).isEqualTo(111);
+    }
+
+    @Test
+    void testFailGetById() {
+        when(repository.findById(1L)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> service.getById(1L))
+        .isInstanceOf(MovieExceptionNotFound.class);
     }
 }

@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import dev.simoneaa.demop5.implementations.InterfaceGenericGetService;
 import dev.simoneaa.demop5.movie.dtos.MovieDTOResponse;
+import dev.simoneaa.demop5.movie.exceptions.MovieExceptionNotFound;
 import tools.jackson.databind.ObjectMapper;
 
 @WebMvcTest(controllers = MovieController.class)
@@ -65,5 +66,13 @@ public class MovieControllerTest {
 
         assertThat(response.getStatus()).isEqualTo(200);
         assertThat(response.getContentAsString()).isEqualTo(json);
+    }
+
+    @Test
+    void testgetById_ShouldFailReturnAMovieById() throws Exception {
+        when(service.getById(1L)).thenThrow(new MovieExceptionNotFound("Movie not found"));
+
+        mockMvc.perform(get("/api/v1/movies/1"))
+            .andExpect(status().isNotFound());
     }
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import dev.simoneaa.demop5.implementations.InterfaceGenericGetService;
 import dev.simoneaa.demop5.movie.dtos.MovieDTOResponse;
+import dev.simoneaa.demop5.movie.exceptions.MovieExceptionNotFound;
 import dev.simoneaa.demop5.movie.mappers.MovieMapper;
 
 @Service
@@ -28,5 +29,12 @@ public class MovieServiceImpl implements InterfaceGenericGetService<MovieDTOResp
 
         return movies;
     }
-    
+ 
+    @Override
+    public MovieDTOResponse getById(Long id) {
+        MovieEntity movie = repository.findById(id)
+        .orElseThrow(() -> new MovieExceptionNotFound("Movie not found. Id " + id + " does not exist"));
+        return MovieMapper.toDTO(movie);
+    }
+
 }

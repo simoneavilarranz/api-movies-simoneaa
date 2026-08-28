@@ -1,7 +1,7 @@
-package dev.simoneaa.demop5.mapper;
+package dev.simoneaa.demop5.movie.mappers;
 
-import dev.simoneaa.demop5.dtos.MovieDTOResponse;
 import dev.simoneaa.demop5.movie.MovieEntity;
+import dev.simoneaa.demop5.movie.dtos.MovieDTOResponse;
 
 public class MovieMapper {
 

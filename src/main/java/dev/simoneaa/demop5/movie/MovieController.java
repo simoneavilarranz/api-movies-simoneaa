@@ -1,6 +1,7 @@
 package dev.simoneaa.demop5.movie;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
@@ -22,6 +23,11 @@ public class MovieController {
     @GetMapping("")
     public List<MovieDTOResponse> index() {
         return getService.getEntities();
+    }
+
+    @GetMapping("{id}")
+    public MovieDTOResponse getById(@PathVariable Long id) {
+        return getService.getById(id);
     }
     
 }

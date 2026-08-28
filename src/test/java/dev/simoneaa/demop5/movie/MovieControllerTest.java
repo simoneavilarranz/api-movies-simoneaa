@@ -1,6 +1,8 @@
 package dev.simoneaa.demop5.movie;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -48,5 +50,20 @@ public class MovieControllerTest {
         assertThat(response.getContentAsString()).contains("Cure");
         assertThat(response.getContentAsString()).contains("Kiyoshi Kurosawa");
         assertThat(response.getContentAsString()).contains("111");
+    }
+
+    @Test
+    void testgetById_ShouldReturnAMovieById() throws Exception {
+        MovieDTOResponse dto = new MovieDTOResponse(1L, "Cure", "Kiyoshi Kurosawa", 111);
+        String json = mapper.writeValueAsString(dto);
+
+        when(service.getById(1L)).thenReturn(dto);
+        MockHttpServletResponse response = mockMvc.perform(get("/api/v1/movies/1"))
+                .andExpect(status().isOk())
+                .andReturn()
+                .getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(200);
+        assertThat(response.getContentAsString()).isEqualTo(json);
     }
 }

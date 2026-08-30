@@ -15,7 +15,7 @@ import dev.simoneaa.demop5.movie.mappers.MovieMapper;
 
 @Service
 public class MovieServiceImpl implements InterfaceGenericGetService<MovieDTOResponse>,
-InterfaceGenericEditService<MovieDTORequest, MovieDTOResponse>{
+InterfaceGenericEditService<MovieDTORequest, MovieDTOResponse> {
 
     private final MovieRepository repository;
 
@@ -53,6 +53,18 @@ InterfaceGenericEditService<MovieDTORequest, MovieDTOResponse>{
             MovieEntity movieSaved = repository.save(movieToSave);
 
             return MovieMapper.toDTO(movieSaved);
+    }
+
+    @Override
+    public MovieDTOResponse updateEntity(Long id, MovieDTORequest dto) {
+        MovieEntity movie = repository.findById(id)
+        .orElseThrow(() -> new MovieExceptionNotFound("Movie not found. Id " + id + " does not exist"));
+        movie.setTitle(dto.title());
+        movie.setDirector(dto.director());
+        movie.setLength(dto.length());
+
+        MovieEntity movieUpdated = repository.save(movie);
+        return MovieMapper.toDTO(movieUpdated);
     }
 
 }

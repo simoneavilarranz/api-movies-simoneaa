@@ -144,4 +144,21 @@ public class MovieControllerTest {
         assertThat(response.getStatus()).isEqualTo(200);
         assertThat(response.getContentAsString()).isEqualTo(json);
     }
+
+    @Test
+    void testGetByGenre_ShouldReturnMovies() throws Exception {
+        MovieDTOResponse dto = new MovieDTOResponse(1L, "Cure", "Kiyoshi Kurosawa", 111);
+        List<MovieDTOResponse> movies = List.of(dto);
+        String json = mapper.writeValueAsString(movies);
+
+        when(service.getByGenre("Drama")).thenReturn(movies);
+
+        MockHttpServletResponse response = mockMvc.perform(get("/api/v1/movies/search?genre=Drama"))
+            .andExpect(status().isOk())
+            .andReturn()
+            .getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(200);
+        assertThat(response.getContentAsString()).isEqualTo(json);
+    }
 }

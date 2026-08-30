@@ -3,15 +3,19 @@ package dev.simoneaa.demop5.movie;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
+import dev.simoneaa.demop5.implementations.InterfaceGenericEditService;
 import dev.simoneaa.demop5.implementations.InterfaceGenericGetService;
+import dev.simoneaa.demop5.movie.dtos.MovieDTORequest;
 import dev.simoneaa.demop5.movie.dtos.MovieDTOResponse;
 import dev.simoneaa.demop5.movie.exceptions.MovieExceptionNotFound;
 import dev.simoneaa.demop5.movie.mappers.MovieMapper;
 
 @Service
-public class MovieServiceImpl implements InterfaceGenericGetService<MovieDTOResponse>{
+public class MovieServiceImpl implements InterfaceGenericGetService<MovieDTOResponse>,
+InterfaceGenericEditService<MovieDTORequest, MovieDTOResponse>{
 
     private final MovieRepository repository;
 
@@ -35,6 +39,20 @@ public class MovieServiceImpl implements InterfaceGenericGetService<MovieDTOResp
         MovieEntity movie = repository.findById(id)
         .orElseThrow(() -> new MovieExceptionNotFound("Movie not found. Id " + id + " does not exist"));
         return MovieMapper.toDTO(movie);
+    }
+
+    @Override
+    public MovieDTOResponse storeEntity(MovieDTORequest dto) {
+        MovieEntity movieToSave = MovieMapper.toEntity(dto);
+        Example<MovieEntity> example = Example.of(movieToSave);
+        boolean isEmpty = repository.findAll(example).isEmpty();
+
+        if (!isEmpty)
+            return null;
+
+            MovieEntity movieSaved = repository.save(movieToSave);
+
+            return MovieMapper.toDTO(movieSaved);
     }
 
 }

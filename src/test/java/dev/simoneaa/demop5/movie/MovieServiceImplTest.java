@@ -124,4 +124,15 @@ public class MovieServiceImplTest {
         assertThat(movie.director()).isEqualTo("Kiyoshi Kurosawa");
         assertThat(movie.length()).isEqualTo(111);
     }
+
+    @Test
+    void testGetByGenre() {
+        MovieEntity movieMock = new MovieEntity(1L, "Cure", "Kiyoshi Kurosawa", 111);
+        when(repository.findByGenresName("Drama")).thenReturn(List.of(movieMock));
+
+        List<MovieDTOResponse> movies = service.getByGenre("Drama");
+
+        assertThat(movies.size()).isEqualTo(1);
+        assertThat(movies.get(0).title()).isEqualTo("Cure");
+    }
 }

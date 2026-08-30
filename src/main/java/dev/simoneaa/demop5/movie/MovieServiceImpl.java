@@ -79,4 +79,12 @@ InterfaceGenericEditService<MovieDTORequest, MovieDTOResponse> {
         repository.delete(movie);
     }
 
+    @Override
+    public List<MovieDTOResponse> getByGenre(String genreName) {
+        List<MovieEntity> movies = repository.findByGenresName(genreName);
+        return movies.stream()
+            .map(MovieMapper::toDTO)
+            .toList();
+    }
+
 }

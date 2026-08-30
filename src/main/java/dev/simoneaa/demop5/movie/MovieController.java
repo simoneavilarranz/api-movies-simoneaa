@@ -66,11 +66,6 @@ public class MovieController {
     }
 
     @GetMapping("/search")
-    public MovieDTOResponse getByTitle(@RequestParam String title) {
-        return getService.getByTitle(title);
-    }
-
-    @GetMapping("/search")
     public ResponseEntity<?> search(
         @RequestParam(required = false) String title,
         @RequestParam(required = false) String genre
@@ -83,5 +78,5 @@ public class MovieController {
         }
         return ResponseEntity.badRequest().build();
     }
-    
+
 }

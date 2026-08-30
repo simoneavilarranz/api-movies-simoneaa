@@ -1,4 +1,4 @@
-package dev.simoneaa.demop5.genre;
+package dev.simoneaa.demop5.actor;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -7,17 +7,17 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "genres")
-public class GenreEntity {
+@Table(name = "actors")
+public class ActorEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
 
-    public GenreEntity() {
+    public ActorEntity() {
     }
 
-    public GenreEntity(Long id, String name) {
+    public ActorEntity(Long id, String name) {
         this.id = id;
         this.name = name;
     }

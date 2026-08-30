@@ -33,6 +33,12 @@ InterfaceGenericEditService<MovieDTORequest, MovieDTOResponse> {
 
         return movies;
     }
+
+    public MovieDTOResponse getByTitle(String title) {
+        MovieEntity movie = repository.findByTitle(title)
+            .orElseThrow(() -> new MovieExceptionNotFound("Movie not found. Title " + title + " does not exist"));
+        return MovieMapper.toDTO(movie);
+    }
  
     @Override
     public MovieDTOResponse getById(Long id) {

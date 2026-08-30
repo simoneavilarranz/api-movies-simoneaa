@@ -21,7 +21,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.http.MediaType;
 
 import dev.simoneaa.demop5.implementations.InterfaceGenericEditService;
-import dev.simoneaa.demop5.implementations.InterfaceGenericGetService;
 import dev.simoneaa.demop5.movie.dtos.MovieDTORequest;
 import dev.simoneaa.demop5.movie.dtos.MovieDTOResponse;
 import dev.simoneaa.demop5.movie.exceptions.MovieExceptionNotFound;
@@ -33,7 +32,7 @@ public class MovieControllerTest {
     private MockMvc mockMvc;
 
     @MockitoBean
-    private InterfaceGenericGetService<MovieDTOResponse> service;
+    private MovieGetService service;
 
     @MockitoBean
     private InterfaceGenericEditService<MovieDTORequest, MovieDTOResponse> editService;
@@ -128,5 +127,21 @@ public class MovieControllerTest {
     void testDelete_ShouldReturnNoContent() throws Exception {
         mockMvc.perform(delete("/api/v1/movies/1"))
             .andExpect(status().isNoContent());
+    }
+
+    @Test
+    void testGetByTitle_ShouldReturnMovie() throws Exception {
+        MovieDTOResponse dto = new MovieDTOResponse(1L, "Cure", "Kiyoshi Kurosawa", 111);
+        String json = mapper.writeValueAsString(dto);
+
+        when(service.getByTitle("Cure")).thenReturn(dto);
+
+        MockHttpServletResponse response = mockMvc.perform(get("/api/v1/movies/search?title=Cure"))
+            .andExpect(status().isOk())
+            .andReturn()
+            .getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(200);
+        assertThat(response.getContentAsString()).isEqualTo(json);
     }
 }

@@ -106,10 +106,10 @@ erDiagram
 
 Diagrama de patas de gallo
 ```mermaid
-graph LR
-    MOVIES ||--o{ MOVIES_GENRES : "1:N"
-    GENRES ||--o{ MOVIES_GENRES : "1:N"
-    MOVIES }o--|| YEARS : "N:1"
-    MOVIES ||--o{ MOVIES_ACTORS : "1:N"
-    ACTORS ||--o{ MOVIES_ACTORS : "1:N"
+erDiagram
+    MOVIES ||--o{ MOVIES_GENRES : has
+    GENRES ||--o{ MOVIES_GENRES : has
+    MOVIES }o--|| YEARS : belongs_to
+    MOVIES ||--o{ MOVIES_ACTORS : has
+    ACTORS ||--o{ MOVIES_ACTORS : has
 ```

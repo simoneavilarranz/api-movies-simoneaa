@@ -7,7 +7,6 @@ import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import dev.simoneaa.demop5.implementations.InterfaceGenericEditService;
-import dev.simoneaa.demop5.implementations.InterfaceGenericGetService;
 import dev.simoneaa.demop5.movie.dtos.MovieDTORequest;
 import dev.simoneaa.demop5.movie.dtos.MovieDTOResponse;
 import dev.simoneaa.demop5.movie.exceptions.MovieExceptionNotFound;

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 import dev.simoneaa.demop5.implementations.InterfaceGenericEditService;
-import dev.simoneaa.demop5.implementations.InterfaceGenericGetService;
 import dev.simoneaa.demop5.movie.dtos.MovieDTORequest;
 import dev.simoneaa.demop5.movie.dtos.MovieDTOResponse;
 import jakarta.validation.Valid;

@@ -42,7 +42,8 @@ GET	/api/v1/movies/search?title=Cure	Buscar por título
 GET	/api/v1/movies/search?genre=Drama	Buscar por género
 
 ## Diagramas
-Diagrama de casos de uso
+
+### Diagrama de casos de uso
 ```mermaid
 graph TD
     Usuario((Usuario)) -->|obtener todas| ObtenerPeliculas
@@ -54,7 +55,7 @@ graph TD
     Usuario -->|buscar por género| BuscarPorGenero
 ```
 
-Diagrama de secuencia (GET /api/v1/movies)
+### Diagrama de secuencia (GET /api/v1/movies)
 ```mermaid
 sequenceDiagram
     Cliente->>Controlador: GET /api/v1/movies
@@ -65,7 +66,7 @@ sequenceDiagram
     Controlador-->>Cliente: JSON
 ```
 
-Diagrama de clases
+### Diagrama de clases
 ```mermaid
 classDiagram
     class MovieEntity {
@@ -94,7 +95,7 @@ classDiagram
     MovieEntity "N" --> "N" ActorEntity : many-to-many
 ```
 
-Diagrama de Chen (Entidad-Relación)
+### Diagrama de Chen (Entidad-Relación)
 ```mermaid
 erDiagram
     MOVIES ||--o{ MOVIES_GENRES : has
@@ -104,7 +105,7 @@ erDiagram
     ACTORS ||--o{ MOVIES_ACTORS : has
 ```
 
-Diagrama de patas de gallo
+### Diagrama de patas de gallo
 ```mermaid
 erDiagram
     MOVIES ||--o{ MOVIES_GENRES : has

@@ -67,4 +67,11 @@ InterfaceGenericEditService<MovieDTORequest, MovieDTOResponse> {
         return MovieMapper.toDTO(movieUpdated);
     }
 
+    @Override
+    public void deleteEntity(Long id) {
+        MovieEntity movie = repository.findById(id)
+            .orElseThrow(() -> new MovieExceptionNotFound("Movie not found. Id " + id + " does not exist"));
+        repository.delete(movie);
+    }
+
 }

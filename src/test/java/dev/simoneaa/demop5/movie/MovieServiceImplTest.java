@@ -100,4 +100,15 @@ public class MovieServiceImplTest {
         assertThat(entity.director()).isEqualTo("Christopher Nolan");
         assertThat(entity.length()).isEqualTo(148);
     }
+
+    @Test
+    void testDeleteEntity() {
+        MovieEntity movieMock = new MovieEntity(1L, "Cure", "Kiyoshi Kurosawa", 111);
+
+        when(repository.findById(1L)).thenReturn(Optional.of(movieMock));
+
+        service.deleteEntity(1L);
+
+        Mockito.verify(repository).delete(movieMock);
+    }
 }

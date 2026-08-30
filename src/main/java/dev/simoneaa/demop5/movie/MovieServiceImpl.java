@@ -14,7 +14,7 @@ import dev.simoneaa.demop5.movie.exceptions.MovieExceptionNotFound;
 import dev.simoneaa.demop5.movie.mappers.MovieMapper;
 
 @Service
-public class MovieServiceImpl implements InterfaceGenericGetService<MovieDTOResponse>,
+public class MovieServiceImpl implements MovieGetService,
 InterfaceGenericEditService<MovieDTORequest, MovieDTOResponse> {
 
     private final MovieRepository repository;

@@ -9,10 +9,14 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.data.domain.Example;
 
 import java.util.List;
 import java.util.Optional;
+
+import dev.simoneaa.demop5.movie.dtos.MovieDTORequest;
 import dev.simoneaa.demop5.movie.dtos.MovieDTOResponse;
 import dev.simoneaa.demop5.movie.exceptions.MovieExceptionNotFound;
 
@@ -67,5 +71,18 @@ public class MovieServiceImplTest {
 
         assertThatThrownBy(() -> service.getById(1L))
         .isInstanceOf(MovieExceptionNotFound.class);
+    }
+
+    @Test
+    void testStoreMovie() {
+        MovieDTORequest request = new MovieDTORequest("Inception", "Christopher Nolan", 148);
+
+        when(repository.save(Mockito.any(MovieEntity.class))).thenReturn(new MovieEntity(1L, "Inception", "Christopher Nolan", 148));
+        when(repository.findAll(Mockito.<Example<MovieEntity>>any())).thenReturn(List.of());
+        MovieDTOResponse entity = service.storeEntity(request);
+
+        assertThat(entity.title()).isEqualTo("Inception");
+        assertThat(entity.director()).isEqualTo("Christopher Nolan");
+        assertThat(entity.length()).isEqualTo(148);
     }
 }

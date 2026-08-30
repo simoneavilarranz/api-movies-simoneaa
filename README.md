@@ -98,11 +98,27 @@ classDiagram
 ### Diagrama de Chen (Entidad-Relación)
 ```mermaid
 erDiagram
-    MOVIES ||--o{ MOVIES_GENRES : has
-    GENRES ||--o{ MOVIES_GENRES : has
+    MOVIES {
+        Long id
+        String title
+        String director
+        int length
+    }
+    GENRES {
+        Long id
+        String name
+    }
+    YEARS {
+        Long id
+        int year
+    }
+    ACTORS {
+        Long id
+        String name
+    }
+    MOVIES ||--o{ GENRES : has
     MOVIES }o--|| YEARS : belongs_to
-    MOVIES ||--o{ MOVIES_ACTORS : has
-    ACTORS ||--o{ MOVIES_ACTORS : has
+    MOVIES ||--o{ ACTORS : has
 ```
 
 ### Diagrama de patas de gallo

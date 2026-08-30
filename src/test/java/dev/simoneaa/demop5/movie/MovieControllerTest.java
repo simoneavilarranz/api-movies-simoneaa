@@ -2,6 +2,7 @@ package dev.simoneaa.demop5.movie;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -121,5 +122,11 @@ public class MovieControllerTest {
 
         assertThat(response.getStatus()).isEqualTo(200);
         assertThat(response.getContentAsString()).isEqualTo(jsonResponse);
+    }
+
+    @Test
+    void testDelete_ShouldReturnNoContent() throws Exception {
+        mockMvc.perform(delete("/api/v1/movies/1"))
+            .andExpect(status().isNoContent());
     }
 }

@@ -23,11 +23,11 @@ import jakarta.validation.Valid;
 @RequestMapping(path = "${api-endpoint}/movies")
 public class MovieController {
 
-    private final InterfaceGenericGetService<MovieDTOResponse> getService;
+    private final MovieGetService getService;
     private final InterfaceGenericEditService<MovieDTORequest, MovieDTOResponse> editService;
 
     public MovieController(
-        InterfaceGenericGetService<MovieDTOResponse> getService,
+        MovieGetService getService,
         InterfaceGenericEditService<MovieDTORequest, MovieDTOResponse> editService
     ) { this.getService = getService;
         this.editService = editService;

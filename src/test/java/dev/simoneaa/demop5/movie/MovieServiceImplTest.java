@@ -111,4 +111,17 @@ public class MovieServiceImplTest {
 
         Mockito.verify(repository).delete(movieMock);
     }
+
+    @Test
+    void testGetByTitle() {
+        MovieEntity movieMock = new MovieEntity(1L, "Cure", "Kiyoshi Kurosawa", 111);
+
+        when(repository.findByTitle("Cure")).thenReturn(Optional.of(movieMock));
+        MovieDTOResponse movie = service.getByTitle("Cure");
+
+        assertThat(movie.id()).isEqualTo(1L);
+        assertThat(movie.title()).isEqualTo("Cure");
+        assertThat(movie.director()).isEqualTo("Kiyoshi Kurosawa");
+        assertThat(movie.length()).isEqualTo(111);
+    }
 }

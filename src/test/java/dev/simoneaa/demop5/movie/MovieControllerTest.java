@@ -4,6 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.ArrayList;
@@ -99,6 +100,26 @@ public class MovieControllerTest {
         .getResponse();
 
         assertThat(response.getStatus()).isEqualTo(201);
+        assertThat(response.getContentAsString()).isEqualTo(jsonResponse);
+    }
+
+    @Test
+    void testPut_ShouldUpdate() throws Exception {
+        MovieDTORequest request = new MovieDTORequest("Cure", "Kiyoshi Kurosawa", 111);
+        MovieDTOResponse dtoResponse = new MovieDTOResponse(1L, "Cure", "Kiyoshi Kurosawa", 111);
+        String json = mapper.writeValueAsString(request);
+        String jsonResponse = mapper.writeValueAsString(dtoResponse);
+
+        when(editService.updateEntity(Mockito.eq(1L), Mockito.any(MovieDTORequest.class))).thenReturn(dtoResponse);
+
+        MockHttpServletResponse response = mockMvc.perform(put("/api/v1/movies/1")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(json))
+        .andExpect(status().isOk())
+        .andReturn()
+        .getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(200);
         assertThat(response.getContentAsString()).isEqualTo(jsonResponse);
     }
 }

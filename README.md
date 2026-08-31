@@ -32,14 +32,13 @@ mvn install
 
 ## Endpoints
 
-Método	Endpoint	Descripción
-GET	/api/v1/movies	Obtener todas las películas
-GET	/api/v1/movies/{id}	Obtener película por ID
-POST	/api/v1/movies	Añadir película
-PUT	/api/v1/movies/{id}	Actualizar película
-DELETE	/api/v1/movies/{id}	Eliminar película
-GET	/api/v1/movies/search?title=Cure	Buscar por título
-GET	/api/v1/movies/search?genre=Drama	Buscar por género
+GET	/api/v1/movies    **Obtener todas las películas**  
+GET	/api/v1/movies/{id}    **Obtener película por ID**  
+POST /api/v1/movies    **Añadir película**  
+PUT	/api/v1/movies/{id}    **Actualizar película**  
+DELETE	/api/v1/movies/{id}    **Eliminar película**  
+GET	/api/v1/movies/search?title=Cure    **Buscar por título**  
+GET	/api/v1/movies/search?genre=Drama    **Buscar por género**
 
 ## Diagramas
 

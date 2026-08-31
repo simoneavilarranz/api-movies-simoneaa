@@ -129,3 +129,6 @@ erDiagram
     MOVIES ||--o{ MOVIES_ACTORS : has
     ACTORS ||--o{ MOVIES_ACTORS : has
 ```
+
+## Autora
+👩‍💻 Simone Ávila Arranz - Factoría F5 Bootcamp P5
